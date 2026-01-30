@@ -1,25 +1,13 @@
-# PE-OWOD: Parameter-Efficient Open-World Object Detection
+# PE-OWOD: Parameter-Efficient Open-World Detection with Semantic Priors and Virtual Outlier Synthesis
 
 This is the official implementation of the paper:
-**"PE-OWOD: Parameter-Efficient Open-World Object Detection via Semantic-Adapter and Virtual Outlier Synthesis"**.
+"PE-OWOD: Parameter-Efficient Open-World Detection with Semantic Priors and Virtual Outlier Synthesis".
 
-## Introduction
+## Abstract
 
-PE-OWOD is a lightweight framework designed for Open-World Object Detection (OWOD) on resource-constrained devices. 
-*   **Parameter-Efficient:** We freeze the backbone and Transformer encoder, updating only **<2%** of parameters (Residual Adapters).
-*   **Virtual Outlier Synthesis (VOS):** We introduce a novel mechanism to synthesize unknown objects in the feature space, significantly improving Unknown Recall.
-*   **Performance:** Achieves **64.7% U-Recall** on MS-COCO with only **2.2GB GPU memory** usage.
+Open-world object detection demands a balance between knowing categories and discovering new objects never seen in training. In practice, full model fine tuning often fails in such a dynamic environment. We find fully tuned models overfit known classes and lose sensitivity to unknown objects, with computationally large computational costs. To address this, we propose PE-OWOD, a light-weight approach that avoids heavy retraining. Instead of updating the entire network, we lock backbone and encoder to maintain stable visual priors, injecting compact Residual Adapters only to decoder for task adaptation. We also introduce VOS to define explicit decision boundary for open space with optional semantic initialization. The MS-COCO benchmarks show a striking efficiency advantage. Update less than 2% of model parameters, PE-OWOD achieves 64.7% Unknown Recall (significantly outperform fully tuned baselines), and reduce peak GPU memory usage by 86%.These results suggest that parameter efficient adaptation is not merely a constraint but a reliable strategy for robust open-world detection.
 
-![Architecture]
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/YourUsername/PE-OWOD.git
-   cd PE-OWOD
-
-1.Install dependencies:
+Install dependencies:
 pip install -r requirements.txt
 Note: We recommend using PyTorch >= 1.10 with CUDA support.
 
@@ -27,20 +15,21 @@ Data Preparation
 1.Download MS-COCO 2017 dataset (train2017 and val2017) from the https://www.google.com/url?sa=E&q=https%3A%2F%2Fcocodataset.org%2F.
 2.Organize the data as follows:
 PE-OWOD/
-├── train/            # Contains train2017 images
+├── train/            
 │   └── annotations/  # Place instances_train2017.json here
-├── val/              # Contains val2017 images
+│   └── train2017/    # Contains train2017 images
+│   └── val2017/ # Contains val2017 images
 └── ...
 3.Generate the open-world task split:
 python scripts/split_coco.py
 
 Model Zoo
-Model	                 Backbone	mAP(Known)  U-Recall	       Download
-PE-OWOD (Ver 4.0)	ResNet-50 (Frozen)	21.4	64.7%	[Google Drive] / [Baidu Netdisk]
+Model	                 Backbone	     mAP(Known)     U-Recall	       
+PE-OWOD (Ver 4.0)	 ResNet-50 (Frozen)	 21.4        	64.7%	
 (Pre-extracted CLIP embeddings are included in clip_embeddings_40.pth)
 
 Training
-To train the model on a single GPU (e.g., RTX 4060):
+To train the model on a single GPU:
 
 python main.py \
   --coco_path train \
@@ -70,6 +59,6 @@ If you find this work useful, please consider citing:
 @article{pe_owod2026,
   title={PE-OWOD: Parameter-Efficient Open-World Detection with Semantic Priors and Virtual Outlier Synthesis},
   author={Jiaming Gu},
-  journal={arXiv preprint},
+  journal={preprint},
   year={2026}
 }

@@ -12,14 +12,22 @@ pip install -r requirements.txt
 Note: We recommend using PyTorch >= 1.10 with CUDA support.
 
 Data Preparation
+
 1.Download MS-COCO 2017 dataset (train2017 and val2017) from the https://www.google.com/url?sa=E&q=https%3A%2F%2Fcocodataset.org%2F.
+
 2.Organize the data as follows:
 PE-OWOD/
+
 ├── train/            
+
 │   └── annotations/  # Place instances_train2017.json here
+
 │   └── train2017/    # Contains train2017 images
+
 │   └── val2017/ # Contains val2017 images
+
 └── ...
+
 3.Generate the open-world task split:
 python scripts/split_coco.py
 

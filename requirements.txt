@@ -1,0 +1,27 @@
+# PyTorch Core
+torch>=1.10.0
+torchvision>=0.11.0
+
+# Numerical & Image Processing
+numpy
+scipy
+Pillow
+opencv-python
+
+# Transformer & CLIP
+transformers
+huggingface-hub
+regex
+ftfy
+
+# Visualization
+matplotlib
+seaborn
+pandas
+
+# Progress Bar
+tqdm
+
+# COCO Evaluation
+# Note: On Windows, use 'pycocotools-windows'. On Linux, use 'pycocotools'.
+pycocotools
